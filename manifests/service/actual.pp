@@ -10,7 +10,7 @@ class mcollective::service::actual {
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      source => "puppet:///modules/mcollective/mcollective.init",
+      source => 'puppet:///modules/mcollective/mcollective.init',
       notify  => Service['mcollective'],
   }
 
