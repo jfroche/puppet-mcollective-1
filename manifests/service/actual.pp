@@ -7,11 +7,11 @@ class mcollective::service::actual {
   file {
     '/etc/init.d/mcollective':
       ensure => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0755',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
       source => 'puppet:///modules/mcollective/mcollective.init',
-      notify  => Service['mcollective'],
+      notify => Service['mcollective'],
   }
 
   service { 'mcollective':
