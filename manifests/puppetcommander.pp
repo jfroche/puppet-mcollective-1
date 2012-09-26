@@ -29,7 +29,6 @@ class mcollective::puppetcommander {
     'puppetcommander':
       ensure     => running,
       hasstatus  => true,
-      hasrestart => true,
       require    => File[
         '/usr/sbin/puppetcommanderd',
         '/etc/sysconfig/puppetcommander',
