@@ -22,7 +22,7 @@ class mcollective::puppetcommander {
       mode   => '0755',
   }
   service {
-    'puppetdcommander':
+    'puppetcommander':
       ensure     => running,
       hasstatus  => true,
       hasrestart => true,
