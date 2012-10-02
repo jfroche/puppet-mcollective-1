@@ -175,11 +175,18 @@ def run(interval, concurrency)
                 log("Current puppetd's running: #{cur_concurrency}")
 
                 if concurrency
-                    if cur_concurrency < concurrency
-                        run_client(client)
-                    else
+                    while cur_concurrency >= concurrency
                         log("Puppet run for client #{client} skipped due to current concurrency of #{cur_concurrency}")
+
+                        sleeptime = (interval * 60 / clients.size) - (Time.now.to_i - starttime)
+                        log("Sleeping for #{sleeptime} seconds")
+
+                        sleep sleeptime - (Time.now.to_i - starttime)
+                        starttime = Time.now.to_i
+                        cur_concurrency = concurrent_count
+                        log("Current puppetd's running: #{cur_concurrency}")
                     end
+                    run_client(client)
                 else
                     run_client(client)
                 end
