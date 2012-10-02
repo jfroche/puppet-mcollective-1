@@ -16,9 +16,6 @@ class mcollective::plugins {
     notify  => Service['mcollective'],
   }
 
-  file { "${p_base}/facts/facter.rb":
-    source => "${s_base}/facts/facter/facter.rb",
-  }
   file { "${p_base}/agent/service.rb":
     source => "${s_base}/agent/service/agent/puppet-service.rb",
   }
