@@ -6,9 +6,12 @@ class mcollective::install::redhat {
   }
 
   package { 'mcollective':
-    ensure  => '2.2.0',
-    alias   => 'mcollective',
-    require => Package['stomp'],
+    ensure    => $::operatingsystemrelease ? {
+      /^6/    => '2.2.0-1.el6',
+      default => '2.2.0-1.el5',
+    },
+    alias     => 'mcollective',
+    require   => Package['stomp'],
   }
 
 }
