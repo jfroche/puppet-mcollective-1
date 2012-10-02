@@ -5,6 +5,7 @@
 class mcollective::client::plugins {
 
   $bin_dir = '/usr/local/bin'
+  $app_dir = '/usr/libexec/mcollective/mcollective/application'
   $s_base = 'puppet:///modules/mcollective/plugins'
 
   File {
@@ -14,20 +15,23 @@ class mcollective::client::plugins {
     require => Class['mcollective::client::install'],
   }
 
-  file { "${bin_dir}/mc-service":
-    source => "${s_base}/agent/service/mc-service",
+  file { "${app_dir}/service.rb":
+    source => "${s_base}/agent/service/application/service.rb",
   }
-  file { "${bin_dir}/mc-package":
-    source => "${s_base}/agent/package/mc-package",
+  file { "${app_dir}/package.rb":
+    source => "${s_base}/agent/package/application/package.rb",
+  }
+  file { "${app_dir}/nrpe.rb":
+    source => "${s_base}/agent/nrpe/application/nrpe.rb",
   }
   file { "${bin_dir}/mc-nrpe":
-    source => "${s_base}/agent/nrpe/mc-nrpe",
+    source => "${s_base}/agent/nrpe/sbin/check-mc-nrpe",
   }
-  file { "${bin_dir}/mc-puppetd":
-    source => "${s_base}/agent/puppetd/mc-puppetd",
+  file { "${app_dir}/puppetd.rb":
+    source => "${s_base}/agent/puppetd/application/puppetd.rb",
   }
-  file { "${bin_dir}/mc-filemgr":
-    source => "${s_base}/agent/filemgr/mc-filemgr",
+  file { "${app_dir}/filemgr.rb":
+    source => "${s_base}/agent/filemgr/application/filemgr.rb",
   }
 
 }
