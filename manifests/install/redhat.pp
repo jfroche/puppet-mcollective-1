@@ -6,7 +6,7 @@ class mcollective::install::redhat {
   }
 
   package { 'mcollective':
-    ensure  => 'present',
+    ensure  => '2.2.0',
     alias   => 'mcollective',
     require => Package['stomp'],
   }
