@@ -5,7 +5,14 @@
 class mcollective::client::plugins {
 
   $bin_dir = '/usr/local/bin'
-  $app_dir = '/usr/libexec/mcollective/mcollective/application'
+
+  case $::operatingsystem {
+    debian,ubuntu: { $p_base = '/usr/share/mcollective/plugins/mcollective' }
+    redhat,centos: { $p_base = '/usr/libexec/mcollective/mcollective' }
+    default: { fail("${::hostname}: mcollective: trying to install unsupported operatingsystem ${::operatingsystem}") }
+  }
+
+  $app_dir = "$p_base/application"
   $s_base = 'puppet:///modules/mcollective/plugins'
 
   File {
