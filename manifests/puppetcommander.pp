@@ -20,10 +20,16 @@ class mcollective::puppetcommander {
         '/etc/sysconfig/puppetcommander':
           ensure  => present,
           content => 'MCOLLECTIVE_EXTRA_OPTS=""',
-          notify  => Service['puppetcommander'],
+          notify  => Service['puppetcommander']
       }
     }
-    default: {}
+    default: {
+      file {
+        '/etc/sysconfig/puppetcommander':
+          ensure  => absent
+      }
+    }
+
   }
 
   file {
