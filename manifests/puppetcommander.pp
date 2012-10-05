@@ -1,4 +1,5 @@
 class mcollective::puppetcommander {
+
   file {
     '/etc/init.d/puppetcommander':
       ensure => present,
@@ -6,18 +7,25 @@ class mcollective::puppetcommander {
       mode   => '0755',
       notify => Service['puppetcommander'],
   }
+
   file {
     '/etc/puppetcommander.cfg':
       ensure => present,
       source => 'puppet:///modules/mcollective/puppetcommander.cfg',
       notify => Service['puppetcommander'],
   }
-  file {
-    '/etc/sysconfig/puppetcommander':
-      ensure  => present,
-      content => 'MCOLLECTIVE_EXTRA_OPTS=""',
-      notify  => Service['puppetcommander'],
+  case $::operatingsystem {
+    redhat,centos: {
+      file {
+        '/etc/sysconfig/puppetcommander':
+          ensure  => present,
+          content => 'MCOLLECTIVE_EXTRA_OPTS=""',
+          notify  => Service['puppetcommander'],
+      }
+    }
+    default: {}
   }
+
   file {
     '/usr/sbin/puppetcommanderd':
       ensure => present,
